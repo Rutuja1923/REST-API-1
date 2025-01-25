@@ -6,7 +6,7 @@ This is a simple RESTful API built using Node.js and Express. It uses a `MOCK_DA
 - View all users in an HTML format.
 - View all users as JSON data.
 - View a specific user by ID.
-- Add a new user (work in progress).
+- Add a new user.
 - Update user details (work in progress).
 - Delete a user (work in progress).
 
@@ -30,9 +30,31 @@ This is a simple RESTful API built using Node.js and Express. It uses a `MOCK_DA
    - `GET /api/users/:id`  
    - Returns a specific user by their unique `id`.
 
-3. **Add New User (Work in Progress)**  
+3. **Add New User**  
    - `POST /api/users`  
-   - Endpoint for adding a new user (currently under development).
+   - Adds a new user to the database.
+   - Request Body: Should be sent in `x-www-form-urlencoded` format with the following fields:
+      - `first_name`: User's first name (e.g., "John")  
+      - `last_name`: User's last name (e.g., "Doe")  
+      - `email`: User's email address (e.g., "john.doe@example.com")  
+      - `gender`: User's gender (e.g., "Male")  
+      - `job_title`: User's job title (e.g., "Software Engineer") 
+   - **Response:**  
+      - **On Success:** Returns a `201` status code with a JSON object:
+         ```json
+         {
+            "status": "success",
+            "message": "User added successfully!",
+            "userId": `id`
+         }
+         ```
+      - **On Error:** Returns a `500` status code if there’s an issue saving the data:
+         ```json
+         {
+            "status": "error",
+            "message": "Failed to add user."
+         }
+         ```
 
 4. **Update User (Work in Progress)**  
    - `PATCH /api/users/:id`  
