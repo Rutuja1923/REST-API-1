@@ -41,12 +41,36 @@ app
         return res.json(user);
     })
     .patch((req,res) => {
-        //TODO : Edit the user with the id
-        return res.json(
-            {
-                status : 'pending'
-            }
+        const id = Number(req.params.id);
+        const body = req.body;
+
+        const userIndex = users.findIndex((user) => 
+            user.id === id
         );
+
+        if (userIndex !== -1) {
+            users[userIndex] = {...users[userIndex], ...body};
+
+            fs.writeFile('./MOCK_DATA.json', JSON.stringify(users), (err) => {
+                if (err) {
+                    return res.status(500).json({
+                        status: 'error',
+                        message: 'Failed to update user.'
+                    });
+                }
+                return res.status(200).json({
+                    status: 'success',
+                    message: 'User updated successfully!',
+                    userId : id
+                });
+            });
+        }
+        else{
+            return res.status(404).json({
+                status: 'error',
+                message: 'User not found.',
+            });    
+        }
     })
     .delete((req,res) => {
         //TODO : Delete the user with the id
