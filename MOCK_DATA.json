@@ -7998,5 +7998,21 @@
     "email": "kiscowitzrr@ebay.co.uk",
     "gender": "Female",
     "job_title": "Accounting Assistant IV"
+  },
+  {
+    "id": 1001,
+    "first_name": "Rujira",
+    "last_name": "Rocks",
+    "email": "rujirarocks19@gmail.com",
+    "gender": "Female",
+    "job_title": "Developer"
+  },
+  {
+    "id": 1002,
+    "first_name": "Gojo",
+    "last_name": "Satoru",
+    "email": "satorugojo712@gmail.com",
+    "gender": "Male",
+    "job_title": "Jujustu Sorcerer"
   }
 ]
