@@ -94,8 +94,6 @@ This is a simple RESTful API built using Node.js and Express. It uses a `MOCK_DA
        }
        ```
 
----
-
 5. **Delete User**
    - `DELETE /api/users/:id`
    - Endpoint for removing a specific user from the database.
@@ -131,3 +129,46 @@ Each user object in the database has the following structure:
   "job_title": "Paralegal"
 }
 ```
+
+## How to Run the Project
+
+1. **Clone the Repository**  
+   Run the following command in your terminal to clone the repository:  
+   ```bash
+   git clone https://github.com/Rutuja1923/REST-API-1.git
+   ```
+
+2. **Navigate to the Project Directory**
+
+   ```bash
+   cd REST-API-1
+   ```
+
+3. **Install Dependencies**
+   Use the following command to install the required dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. **Run the Project**
+   You can start the project using one of the following commands:
+
+   - For a one-time run:
+   ```bash
+   npm start
+   ```
+
+   - For development mode with live-reloading:
+   ```bash
+   npm run dev
+   ```
+
+5. **Access the API**
+   Once the server starts, you can access the API at:
+   ```bash
+   http://localhost:3000
+   ```
+   Make sure to use an API testing tool like Postman to send requests.
+
+Feel free to open issues or contribute to the repository! 😊
