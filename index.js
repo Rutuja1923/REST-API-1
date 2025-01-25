@@ -68,17 +68,36 @@ app
         else{
             return res.status(404).json({
                 status: 'error',
-                message: 'User not found.',
+                message: 'User not found.'
             });    
         }
     })
     .delete((req,res) => {
-        //TODO : Delete the user with the id
-        return res.json(
-            {
-                status : 'pending'
-            }
+        const id = Number(req.params.id);
+
+        const filteredUsers = users.filter( (user) => 
+            user.id !== id
         );
+
+        if (filteredUsers.length !== users.length) {
+            fs.writeFile('./MOCK_DATA.json', JSON.stringify(filteredUsers), (err) => {
+                if (err) {
+                    return res.status(500).json({
+                        status: 'error',
+                        message: 'Failed to delete user.'
+                    });
+                }
+                return res.status(200).json({
+                    status: 'success',
+                    message: 'User deleted successfull'
+                });
+            });
+        } else {
+            return res.status(404).json({
+                status: 'error',
+                message: 'User not found.'
+            });
+        }
     });   
 
 app.post('/api/users',(req,res) => {
