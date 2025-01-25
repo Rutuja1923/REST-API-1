@@ -1,8 +1,12 @@
 const express = require('express');
 const users = require('./MOCK_DATA.json');
+const fs = require('fs');
 
 const app = express();
 const port = 3000;
+
+//middleware
+app.use(express.urlencoded({extended: false}));
 
 //routes
 app.get('/',(req,res) => {
@@ -54,12 +58,24 @@ app
     });   
 
 app.post('/api/users',(req,res) => {
-    //TODO : Create a new User
-    return res.json(
-        {
-            status : 'pending'
+    const body = req.body;
+    const newUser = {id: users.length+1, ...body};
+    users.push(newUser);
+
+    fs.writeFile('./MOCK_DATA.json', JSON.stringify(users, null, 2), (err) => {
+        if (err) {
+            console.error('Error writing to file:', err.message);
+            return res.status(500).json({
+                status: 'error',
+                message: 'Failed to save user data. Please try again later.'
+            });
         }
-    );
+        res.status(201).json({
+            status: 'success',
+            message: 'User added successfully!',
+            userId: newUser.id
+        });
+    }); 
 });
 
 app.listen(port, () => {
