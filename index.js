@@ -51,26 +51,70 @@ app
         if (userIndex !== -1) {
             users[userIndex] = {...users[userIndex], ...body};
 
-            fs.writeFile('./MOCK_DATA.json', JSON.stringify(users), (err) => {
+            fs.writeFile('./MOCK_DATA.json', JSON.stringify(users,null,2), (err) => {
                 if (err) {
-                    return res.status(500).json({
-                        status: 'error',
-                        message: 'Failed to update user.'
-                    });
+                    return res.status(500).json(
+                        {
+                            status: 'error',
+                            message: 'Failed to update user.'
+                        }
+                    );
                 }
-                return res.status(200).json({
-                    status: 'success',
-                    message: 'User updated successfully!',
-                    userId : id
-                });
+                return res.status(200).json(
+                    {
+                        status: 'success',
+                        message: 'User updated successfully!',
+                        userId : id
+                    }
+                );
             });
         }
-        else{
-            return res.status(404).json({
-                status: 'error',
-                message: 'User not found.'
-            });    
+        else {
+            return res.status(404).json(
+                {
+                    status: 'error',
+                    message: `User with ${id} not found.`
+                }
+            );    
         }
+    })
+    .put((req,res) => {
+        const id = Number(req.params.id);
+        const body = req.body;
+
+        const userIndex = users.findIndex( (user) => 
+            user.id === id
+        );
+
+        if (userIndex !== -1){
+
+            users[userIndex] = {id, ...body};
+
+            fs.writeFile('./MOCK_DATA.json', JSON.stringify(users, null, 2), (err) => {
+                if (err) {
+                    return res.status(500).json(
+                        { 
+                            message: 'Failed to update user', 
+                            error: err.message 
+                        }
+                    );
+                }
+                return res.json(
+                    {
+                        status: 'success',
+                        message: 'User replaced successfully',
+                        user: id
+                    }
+                );
+            });
+        } 
+        else {
+            return res.status(404).json(
+                { 
+                    message: `User with ID ${id} not found` 
+                }
+            );
+        }      
     })
     .delete((req,res) => {
         const id = Number(req.params.id);
@@ -80,23 +124,30 @@ app
         );
 
         if (filteredUsers.length !== users.length) {
-            fs.writeFile('./MOCK_DATA.json', JSON.stringify(filteredUsers), (err) => {
+            fs.writeFile('./MOCK_DATA.json', JSON.stringify(filteredUsers, null, 2), (err) => {
                 if (err) {
-                    return res.status(500).json({
-                        status: 'error',
-                        message: 'Failed to delete user.'
-                    });
+                    return res.status(500).json(
+                        {
+                            status: 'error',
+                            message: 'Failed to delete user.'
+                        }
+                    );
                 }
-                return res.status(200).json({
-                    status: 'success',
-                    message: 'User deleted successfull'
-                });
+                return res.status(200).json(
+                    {
+                        status: 'success',
+                        message: 'User deleted successfull'
+                    }
+                );
             });
-        } else {
-            return res.status(404).json({
-                status: 'error',
-                message: 'User not found.'
-            });
+        } 
+        else {
+            return res.status(404).json(
+                {
+                    status: 'error',
+                    message: 'User not found.'
+                }
+            );
         }
     });   
 
@@ -108,16 +159,20 @@ app.post('/api/users',(req,res) => {
     fs.writeFile('./MOCK_DATA.json', JSON.stringify(users, null, 2), (err) => {
         if (err) {
             console.error('Error writing to file:', err.message);
-            return res.status(500).json({
-                status: 'error',
-                message: 'Failed to save user data. Please try again later.'
-            });
+            return res.status(500).json(
+                {
+                    status: 'error',
+                    message: 'Failed to save user data. Please try again later.'
+                }
+            );
         }
-        res.status(201).json({
-            status: 'success',
-            message: 'User added successfully!',
-            userId: newUser.id
-        });
+        return res.status(201).json(
+            {
+                status: 'success',
+                message: 'User added successfully!',
+                userId: newUser.id
+            }
+        );
     }); 
 });
 
