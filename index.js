@@ -14,6 +14,7 @@ app.get('/',(req,res) => {
     res.send(`Hey there! please try <a href='http://localhost:${PORT}/api/users'>http://localhost:${PORT}/api/users</a>`);
 });
 
+//to get list of all users
 app.get('/users',(req,res) => {
     const html = 
     `   <ul>
@@ -27,12 +28,15 @@ app.get('/users',(req,res) => {
 });
 
 //REST API routes
+//to get all user information
 app.get('/api/users',(req,res) => {
     return res.json(users);
 });
  
+
 app
     .route('/api/users/:id')
+    //to get user information about an user with specified id
     .get((req,res) => {
         const id = Number(req.params.id);
         const user = users.find( (user) =>
@@ -40,6 +44,7 @@ app
         );
         return res.json(user);
     })
+    //to get change a user information -> send data in request body
     .patch((req,res) => {
         const id = Number(req.params.id);
         const body = req.body;
@@ -78,6 +83,7 @@ app
             );    
         }
     })
+    // to replace user details -> send data in request body
     .put((req,res) => {
         const id = Number(req.params.id);
         const body = req.body;
@@ -116,6 +122,7 @@ app
             );
         }      
     })
+    //to delete an user with specified id
     .delete((req,res) => {
         const id = Number(req.params.id);
 
@@ -151,6 +158,7 @@ app
         }
     });   
 
+// to create a new user -> send data in request body
 app.post('/api/users',(req,res) => {
     const body = req.body;
     const newUser = {id: users.length+1, ...body};
