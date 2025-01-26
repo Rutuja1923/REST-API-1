@@ -3,15 +3,15 @@ const users = require('./MOCK_DATA.json');
 const fs = require('fs');
 
 const app = express();
-const port = 3000;
+const PORT = 3000;
 
 //middleware
 app.use(express.urlencoded({extended: false}));
 
 //routes
 app.get('/',(req,res) => {
-    const link = `http://localhost:${port}/api/users`;
-    res.send(`Hey there! please try <a href='http://localhost:${port}/api/users'>http://localhost:${port}/api/users</a>`);
+    const link = `http://localhost:${PORT}/api/users`;
+    res.send(`Hey there! please try <a href='http://localhost:${PORT}/api/users'>http://localhost:${PORT}/api/users</a>`);
 });
 
 app.get('/users',(req,res) => {
@@ -176,6 +176,6 @@ app.post('/api/users',(req,res) => {
     }); 
 });
 
-app.listen(port, () => {
-    console.log(`Server stared at http://localhost:${port}`)
+app.listen(PORT, () => {
+    console.log(`Server stared at http://localhost:${PORT}`)
 });
