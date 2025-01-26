@@ -8,8 +8,9 @@ This is a simple RESTful API built using Node.js and Express. It uses a `MOCK_DA
 - View all users as JSON data.
 - View a specific user by ID.
 - Add a new user.
-- Update user details (work in progress).
-- Delete a user (work in progress).
+- Update user details.
+- Replace user details.
+- Delete a user.
 
 ## Routes
 
@@ -42,11 +43,11 @@ This is a simple RESTful API built using Node.js and Express. It uses a `MOCK_DA
    - `POST /api/users`
    - Adds a new user to the database.
    - Request Body: Should be sent in `x-www-form-urlencoded` format with the following fields:
-     - `first_name`: User's first name (ex : "John")
-     - `last_name`: User's last name (ex: "Doe")
-     - `email`: User's email address (ex: "john.doe@example.com")
-     - `gender`: User's gender (ex: "Male")
-     - `job_title`: User's job title (ex: "Software Engineer")
+     - `first_name`: String, User's first name (ex : "John")
+     - `last_name`: String, User's last name (ex: "Doe")
+     - `email`: String, User's email address (ex: "john.doe@example.com")
+     - `gender`: String, User's gender (ex: "Male")
+     - `job_title`: String, User's job title (ex: "Software Engineer")
    - **Response:**
      - **On Success:** Returns a `201` status code with a JSON object:
        ```json
@@ -78,7 +79,7 @@ This is a simple RESTful API built using Node.js and Express. It uses a `MOCK_DA
           job_title: Developer
        ```
    - **Response:**
-     - **200 OK**
+     - **200 OK (On Success)**
        ```json
        {
          "status": "success",
@@ -86,7 +87,7 @@ This is a simple RESTful API built using Node.js and Express. It uses a `MOCK_DA
          "userId" : 1
        }
        ```
-     - **404 Not Found**
+     - **404 Not Found (On Error)**
        ```json
        {
          "status": "error",
@@ -94,7 +95,38 @@ This is a simple RESTful API built using Node.js and Express. It uses a `MOCK_DA
        }
        ```
 
-5. **Delete User**
+5. **Replace USer**
+   - `PUT /api/users/:id`
+   - Endpoint for replacing a specific user's information in the database. The entire user object is replaced with the new data provided.
+   - **Request Parameters:**
+     - `:id` - The ID of the user to be replaced (passed in the URL).
+   - **Request Body:**
+     - The request body must include all required fields in `x-www-form-urlencoded` format.  
+          - `first_name` (string)
+          - `last_name` (string)
+          - `email` (string)
+          - `gender` (string)
+          - `job_title` (string)
+   - **Response:**
+     - **Success** : 
+        - **200 OK**
+        ```json
+        {
+            "status": "success",
+            "message": "User replaced successfully",
+            "id" : 1
+        }
+       ```
+     - **Failure** :
+        - **404 Not Found**
+        ```json
+        {
+          "status": "error",
+          "message": "User with the specified ID not found"
+        }
+        ```
+
+6. **Delete User**
    - `DELETE /api/users/:id`
    - Endpoint for removing a specific user from the database.
    - **Request Parameters:**
