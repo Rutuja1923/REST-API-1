@@ -48,6 +48,8 @@ This is a simple RESTful API built using Node.js and Express. It uses a `MOCK_DA
          "id": 1,
          "first_name": "John",
          "last_name": "Doe",
+         "email": "johndoe@dev.com",
+         "gender": "Male",
          "job_title": "Software Engineer"
        }
        ```
