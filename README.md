@@ -36,7 +36,29 @@ This is a simple RESTful API built using Node.js and Express. It uses a `MOCK_DA
 2. **Get User by ID**
 
    - `GET /api/users/:id`
-   - Returns a specific user by their unique `id`.
+   - Endpoint for retrieving information about a specific user based on their ID.
+   - **Request Parameters:**  
+     - `:id` - The ID of the user to retrieve (passed in the URL).  
+
+   - **Response:**  
+     - **200 OK**  
+       If the user with the specified ID is found:  
+       ```json
+       {
+         "id": 1,
+         "first_name": "John",
+         "last_name": "Doe",
+         "job_title": "Software Engineer"
+       }
+       ```
+     - **404 Not Found**  
+       If the user with the specified ID is not found:  
+       ```json
+       {
+         "status": "error",
+         "message": "User with the specified ID not found"
+       }
+       ```
 
 3. **Add New User**
 
@@ -66,6 +88,7 @@ This is a simple RESTful API built using Node.js and Express. It uses a `MOCK_DA
        ```
 
 4. **Update User**
+
    - `PATCH /api/users/:id`
    - Endpoint for editing a specific user's information.
    - **Request Parameters:**
@@ -96,6 +119,7 @@ This is a simple RESTful API built using Node.js and Express. It uses a `MOCK_DA
        ```
 
 5. **Replace USer**
+
    - `PUT /api/users/:id`
    - Endpoint for replacing a specific user's information in the database. The entire user object is replaced with the new data provided.
    - **Request Parameters:**
@@ -127,6 +151,7 @@ This is a simple RESTful API built using Node.js and Express. It uses a `MOCK_DA
         ```
 
 6. **Delete User**
+
    - `DELETE /api/users/:id`
    - Endpoint for removing a specific user from the database.
    - **Request Parameters:**
