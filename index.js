@@ -8,6 +8,24 @@ const PORT = 3000;
 //middleware
 app.use(express.urlencoded({extended: false}));
 
+//custom middlewares
+app.use( (req, res, next) => {
+    console.log(`Hello from middleware 1`);
+    req.myUserName = 'rutujaj';
+    next();
+    // return res.json(
+    //     {
+    //         message : "Hello from middleware 1"
+    //     }
+    // );
+});
+
+app.use( (req, res, next) => {
+    console.log(`Hello from middleware 2`);
+    console.log(req.myUserName);
+    next();
+});
+
 //routes
 app.get('/',(req,res) => {
     const link = `http://localhost:${PORT}/api/users`;
@@ -30,6 +48,7 @@ app.get('/users',(req,res) => {
 //REST API routes
 //to get all user information
 app.get('/api/users',(req,res) => {
+    console.log(`I m in GET /users route :${req.myUserName}`);
     return res.json(users);
 });
  
