@@ -10,20 +10,12 @@ app.use(express.urlencoded({extended: false}));
 
 //custom middlewares
 app.use( (req, res, next) => {
-    console.log(`Hello from middleware 1`);
-    req.myUserName = 'rutujaj';
-    next();
-    // return res.json(
-    //     {
-    //         message : "Hello from middleware 1"
-    //     }
-    // );
-});
-
-app.use( (req, res, next) => {
-    console.log(`Hello from middleware 2`);
-    console.log(req.myUserName);
-    next();
+    fs.appendFile('log.txt', `${new Date().toISOString()}: ${req.method} ${req.path}\n`, (err,data) => {
+        if (err) {
+            console.error(`Error in writing to file: ${err.message}`);
+        }
+        next();
+    });
 });
 
 //routes
@@ -48,7 +40,6 @@ app.get('/users',(req,res) => {
 //REST API routes
 //to get all user information
 app.get('/api/users',(req,res) => {
-    console.log(`I m in GET /users route :${req.myUserName}`);
     return res.json(users);
 });
  
