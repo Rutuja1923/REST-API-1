@@ -52,6 +52,14 @@ app
         const user = users.find( (user) =>
             user.id === id
         );
+        if (!user) {
+            return res.status(404).json(
+                {   
+                    status : `User not found`,
+                    message: `No user found with ID : ${id}`
+                }
+            );
+        }
         return res.json(user);
     })
     //to get change a user information -> send data in request body
